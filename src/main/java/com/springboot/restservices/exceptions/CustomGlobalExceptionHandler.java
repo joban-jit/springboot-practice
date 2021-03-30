@@ -54,6 +54,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		return new ResponseEntity<>(customErrorDetails, HttpStatus.BAD_REQUEST);		
 	}
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public final ResponseEntity<Object> handlerUserNotFoundException(
+			UserNotFoundException ex, WebRequest request){
+		CustomErrorDetails customErrorDetails = 
+				new CustomErrorDetails(LocalDateTime.now(), ex.getLocalizedMessage(), request.getDescription(false));
+		return new ResponseEntity<Object>(customErrorDetails,HttpStatus.NOT_FOUND);
+	}
+	
 	
 	
 }
