@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends RepresentationModel<User>{
 	
 	@Id
 	@GeneratedValue
