@@ -33,7 +33,7 @@ public class OrderController {
 		if(userOptional.isEmpty()) {
 			throw new UserNotFoundException("User not Found in user repo");
 		}else {
-			return userOptional.get().getOrder();
+			return userOptional.get().getOrders();
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class OrderController {
 		if(userOptional.isEmpty()) {
 			throw new UserNotFoundException("User not Found in user repo");
 		}else {
-			return userOptional.get().getOrder().stream().filter(o->o.getOrderid().equals(orderid)).findFirst();
+			return userOptional.get().getOrders().stream().filter(o->o.getOrderid().equals(orderid)).findFirst();
 		}
 	}
 	

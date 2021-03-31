@@ -28,7 +28,7 @@ public class OrderHateoasController {
 		if(userOptional.isEmpty()) {
 			throw new UserNotFoundException("User not Found in user repo");
 		}else {
-			List<Order> orders = userOptional.get().getOrder();
+			List<Order> orders = userOptional.get().getOrders();
 			return CollectionModel.of(orders);
 		}
 	}
