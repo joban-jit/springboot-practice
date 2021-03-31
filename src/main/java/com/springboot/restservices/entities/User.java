@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,35 +25,43 @@ import lombok.Setter;
 @Entity
 @Table(name = "user")
 //@JsonIgnoreProperties({"firstname","lastname"}) -- Stating Filtering JsonIgnore
-@JsonFilter(value = "userFilter")
+//@JsonFilter(value = "userFilter") -- used for MappingJacksonValue filtering section
 public class User extends RepresentationModel<User> {
 
 	@Id
 	@GeneratedValue
+	@JsonView(Views.External.class)
 	private Long id;
 
 	@NotEmpty(message = "Username is Mandatory field. Please provide username")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
+	@JsonView(Views.External.class)
 	private String username;
 
 	@Size(min = 2, message = "FirstName show have atleast 2 characters")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String firstname;
 
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String lastname;
 
 	@Column(name = "EMAIL_ADDRESS", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String email;
 
 	@Column(name = "ROLE", length = 50, nullable = false)
+	@JsonView(Views.Internal.class)
 	private String role;
 
 //	@JsonIgnore -- Stating Filtering JsonIgnore
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
+	@JsonView(Views.Internal.class)
 	private String ssn;
 
 	@OneToMany(mappedBy = "user")
+	@JsonView(Views.Internal.class)
 	private List<Order> orders;
 
 	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
