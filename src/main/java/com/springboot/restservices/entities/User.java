@@ -15,6 +15,8 @@ import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,25 +26,31 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "user")
+@ApiModel(description="This model is to create a user")
 //@JsonIgnoreProperties({"firstname","lastname"}) -- Stating Filtering JsonIgnore
 //@JsonFilter(value = "userFilter") -- used for MappingJacksonValue filtering section
 public class User extends RepresentationModel<User> {
 
+	@ApiModelProperty(notes="Auto generated unique id", required = true, position=1)
 	@Id
 	@GeneratedValue
 	@JsonView(Views.External.class)
 	private Long id;
 
+	@ApiModelProperty(notes="username of user",example="Joban", required=false, position=2)
+	@Size(min = 2, max = 50)
 	@NotEmpty(message = "Username is Mandatory field. Please provide username")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	@JsonView(Views.External.class)
 	private String username;
 
-	@Size(min = 2, message = "FirstName show have atleast 2 characters")
+	@ApiModelProperty(notes="First name of user", required = false, position=3, example="Jobanjit")
+	@Size(min = 2, max = 50,  message = "FirstName show have atleast 2 characters")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	@JsonView(Views.External.class)
 	private String firstname;
 
+	@ApiModelProperty(notes="Last name of user", required = false, position=4, example="Singh")
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	@JsonView(Views.External.class)
 	private String lastname;
@@ -55,6 +63,7 @@ public class User extends RepresentationModel<User> {
 	@JsonView(Views.Internal.class)
 	private String role;
 
+	@ApiModelProperty(notes = "SSN of the User.", example="SSN1010", required=true,position=5)
 //	@JsonIgnore -- Stating Filtering JsonIgnore
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	@JsonView(Views.Internal.class)

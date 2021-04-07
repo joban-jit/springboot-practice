@@ -50,12 +50,12 @@ public class OrderController {
 	}
 	
 	@GetMapping("/{userid}/orders/{orderid}")
-	public Optional<Order> getOrderByOrderId(@PathVariable("userid") Long userid, @PathVariable("orderid") Long orderid) throws UserNotFoundException{
+	public Order getOrderByOrderId(@PathVariable("userid") Long userid, @PathVariable("orderid") Long orderid) throws UserNotFoundException{
 		Optional<User> userOptional = userRepository.findById(userid);
 		if(userOptional.isEmpty()) {
 			throw new UserNotFoundException("User not Found in user repo");
 		}else {
-			return userOptional.get().getOrders().stream().filter(o->o.getOrderid().equals(orderid)).findFirst();
+			return userOptional.get().getOrders().stream().filter(o->o.getOrderid().equals(orderid)).findFirst().get();
 		}
 	}
 	
