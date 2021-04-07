@@ -11,5 +11,11 @@ public class AppConfig {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+	// to enable live http traces
+//	@Bean
+//	public HttpTraceRepository htttpTraceRepository()
+//	{
+//	  return new InMemoryHttpTraceRepository();
+//	}
 	
 }
