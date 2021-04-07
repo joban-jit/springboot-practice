@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserMsDto {
 
-	private Long userid;
+	private Long id;
 	private String username;
 	private String emailaddress;
 	private String rolename;

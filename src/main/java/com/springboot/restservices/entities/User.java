@@ -63,9 +63,13 @@ public class User extends RepresentationModel<User> {
 	@OneToMany(mappedBy = "user")
 	@JsonView(Views.Internal.class)
 	private List<Order> orders;
+	
+	@Column(name = "")
+	private String address;
 
-	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
-		super();
+	public User(Long id, @NotEmpty(message = "Username is Mandatory field. Please provide username") String username,
+			@Size(min = 2, message = "FirstName show have atleast 2 characters") String firstname, String lastname,
+			String email, String role, String ssn, List<Order> orders, String address) {
 		this.id = id;
 		this.username = username;
 		this.firstname = firstname;
@@ -73,12 +77,15 @@ public class User extends RepresentationModel<User> {
 		this.email = email;
 		this.role = role;
 		this.ssn = ssn;
+		this.orders = orders;
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
+				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", orders=" + orders + ", address=" + address
+				+ "]";
 	}
 
 }
